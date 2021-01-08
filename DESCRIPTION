@@ -1,0 +1,24 @@
+Package: SLCDP
+Title: Simulation and inference of cell differentiation process governed by logistic growth dynamics
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Danilo",
+           family = "Pellin",
+           role = c("aut","cre"),
+           email = "danilo.pellin@dfci.harvard.edu",
+           comment = c(ORCID = "0000-0002-2647-0508"))
+Description: The code contauned in this package accompanies the paper titled: . The code for simulating clone evolution and for making inference on the parameters   .
+License: `use_mit_license()`, `use_gpl3_license()` or friends to
+    pick a license
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+Imports: 
+    Rcplex,
+    Matrix,
+    odeintr,
+    Rcpp,
+    RcppEigen
+LinkingTo: 
+    Rcpp, RcppEigen
