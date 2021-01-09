@@ -22,3 +22,7 @@ Imports:
     RcppEigen
 LinkingTo: 
     Rcpp, RcppEigen
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr

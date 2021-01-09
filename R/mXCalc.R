@@ -13,7 +13,7 @@
 
 
 mXCalc=function(clonesTrajs,netMat,dt,ncell){
-  MXols=lapply(split(clonesTrajs,seq(nrow(clonesTrajs))),function(x) {(t(netMat)) %*% diagXCalc(x,ncell) *dt})
+  MXols=lapply(split(clonesTrajs,seq(nrow(clonesTrajs))),function(x,ncell) {(t(netMat)) %*% diagXCalc(x,ncell) *dt},ncell)
   MXols <- do.call(rbind,MXols)
   MXols=Matrix::Matrix(MXols,sparse=T)
   return(as.matrix(MXols))

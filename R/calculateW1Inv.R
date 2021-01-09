@@ -14,7 +14,7 @@
 
 calculateW1Inv=function(sdePred,lambda=0,ncell,combOk){
   w=lapply(sdePred,function(x) {calcW(x,ncell,combOk)})
-  w1Inv=lapply(w,function(x){diag(x)=diag(x)+lambda; y=(ginv(x)); return(y)} )
+  w1Inv=lapply(w,function(x){diag(x)=diag(x)+lambda; y=(MASS::ginv(x)); return(y)} )
   w1Inv=(Matrix::bdiag(w1Inv))
   return(w1Inv)
 }
