@@ -18,6 +18,7 @@ Imports:
     Rcplex,
     Matrix,
     odeintr,
+    optiSolve,
     Rcpp,
     RcppEigen
 LinkingTo: 

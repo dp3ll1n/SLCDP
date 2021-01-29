@@ -100,12 +100,10 @@ ClonesTrajs=lapply(c(1:N), function(x) {
 `ClonesTrajs` represents the input data set. Based on it we will now try to estimate the parameters and reconstruct the process structure.
 
 We can now move forward with the definition of the constraints for the QP problem, which is fundamental to run the inferential procedure properly. 
-
-There are two options for the solution of the QP: CPLEX or the R package OptiSolve. The methods rely on slightly different formulation of the QP problem, hence we implemented two distinct functions for setting contraints and perform optimization. In the following we use the recommended CPLEX, but it is possible to substitute `ConstraintsCplex()` and `runOptimizationCplex()` with the corresponding `setConstraintsOptiSolve()` and `runOptimizationOptiSolve()`.
 The `setConstraintsCplex()` function return a list object, composed by `A`, used for the definition of the parameters inequality (>=0) constraints; `lb`, parameters lower-bound, and `ub` for parameters upper-bound. By default, some parameters are fixed to 0. These must not be changed and correspond to the main diagonal elements of the differentiation matrix. Users can impose additional parameters to 0 by changing the corresponding `ub` element to 0.
 
 ```{r results='asis'}
-Constraints=setConstraintsCplex(5)
+ConstraintsCplex=setConstraintsCplex(5)
 ```
 
 In the inferential procedure, the first parameter estimates are calculated using an Ordinary Least Square approach as described in Section 4.2 of the manuscript. This requires the calculation of the following quantities, all based on the input data.
@@ -120,7 +118,7 @@ InitialValues1_2ODEs=initialValues1_2ODEsCalc(ClonesTrajsStartValues,ncell)
 
 The following command runs the optimization problem by calling CPLEX, providing the vector of first parameters estimates `a`.
 ```{r results='asis'}
-a=runOptimizationCplex(MXCalc,deltaX,W1Inv=NULL,Constraints)
+a=runOptimizationCplex(MXCalc,deltaX,W1Inv=NULL,ConstraintsCplex)
 ```
 
 With the new initial parameters guess, we can calculate the predicted variance-covariance and improve our OLS results with the Generalized Least Squared (GLS) method.
@@ -129,7 +127,7 @@ With the new initial parameters guess, we can calculate the predicted variance-c
 SdePred=calculatePred(InitialValues1_2ODEs,a)
 W1=calculateW1Inv(SdePred,lambda=0,ncell,CombOk)
 #a=runOptimization(MXCalc,ClonesTrajsEndValues,W1Inv=W1,Constraints)
-a=runOptimizationCplex(MXCalc,deltaX,W1Inv=W1,Constraints)
+a=runOptimizationCplex(MXCalc,deltaX,W1Inv=W1,ConstraintsCplex)
 ```
 
 Parameters estimates are further refined using a Gauss-Newton algorithm. This method relies on the calculation of the Jacobian matrix, used as a predictor matrix to explain the current model's residuals. We calculate the Jacobian matrix numerically by increasing each parameter by a small value `eps`. 
@@ -153,8 +151,8 @@ while( (sum(abs(a-aCurr))>0.05 && (iter<maxiter))|( iter==0) ){
     JtPv=calculateCountsPred(JtP,ncell)
     J[,parj]=(JtPv-FX)/(eps)
   }
-  Constraints$lb=-a
-  da=runOptimizationCplex(J,(ClonesTrajsEndValues-FX),W1Inv=W1,Constraints,bvec=a)
+  ConstraintsCplex$lb=-a
+  da=runOptimizationCplex(J,(ClonesTrajsEndValues-FX),W1Inv=W1,ConstraintsCplex,bvec=a)
   a=a+1*(da)
   SdePred=calculatePred(InitialValues1_2ODEs,a)
   W1=calculateW1Inv(SdePred,lambda=0,ncell,CombOk)

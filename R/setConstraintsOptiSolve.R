@@ -8,34 +8,33 @@
 
 #' @export
 #' @examples
-#' setConstraintsCplex(ncell,duplRatesLB=NA,duplRatesUB=NA,deathRatesLB=NA,deathRatesUB=NA,diffRatesLB=NA,diffRatesUB=NA)
+#' setConstraintsOptiSolve(ncell,duplRatesLB=NA,duplRatesUB=NA,deathRatesLB=NA,deathRatesUB=NA,diffRatesLB=NA,diffRatesUB=NA)
 
 
-setConstraintsCplex=function(ncell,
-                             duplRatesLB=NA,
-                             duplRatesUB=NA,
-                             deathRatesLB=NA,
-                             deathRatesUB=NA,
-                             diffRatesLB=NA,
-                             diffRatesUB=NA){
+setConstraintsOptiSolve=function(ncell,
+                        duplRatesLB=NA,
+                        duplRatesUB=NA,
+                        deathRatesLB=NA,
+                        deathRatesUB=NA,
+                        diffRatesLB=NA,
+                        diffRatesUB=NA){
   if(is.na(duplRatesLB)){
     duplRatesLB=rep(0,ncell)
   }
   if(is.na(duplRatesUB)){
-    duplRatesUB=rep(Inf,ncell)
+    duplRatesUB=rep(NA,ncell)
   }
   if(is.na(deathRatesLB)){
     deathRatesLB=rep(0,ncell)
   }
   if(is.na(deathRatesUB)){
-    deathRatesUB=rep(Inf,ncell)
+    deathRatesUB=rep(NA,ncell)
   }
   if(is.na(diffRatesLB)){
     diffRatesLB=matrix(0,nrow = ncell,ncol = ncell)
   }
   if(is.na(diffRatesUB)){
-    diffRatesUB=matrix(Inf,nrow = ncell,ncol = ncell)
-
+    diffRatesUB=matrix(NA,nrow = ncell,ncol = ncell)
   }
   if(!(all(c(length(duplRatesLB),
              length(duplRatesUB),
