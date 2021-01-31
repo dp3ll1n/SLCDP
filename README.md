@@ -1,6 +1,6 @@
 # Stochastic logistic cell differentiation process - SLCDP
 
-This repository accompanies the manuscript by Pellin et a. __"Tracking hematopoietic stem cell evolution in a Wiskott-Aldrich clinical trial"__
+This repository accompanies the manuscript by Pellin et a. __"Tracking hematopoietic stem cell evolution in a Wiskott-Aldrich clinical trial"__.
 
 The abstract of the paper read as follow:
 
@@ -13,7 +13,7 @@ _Applying our Markov model and generalized method-of-moments to the Wiskott-Aldr
 ## How to install
 
 The package SLCDP requires the installation of [IBM ILOG CPLEX Optimization Studio](https://www.ibm.com/products/ilog-cplex-optimization-studio), software available at no-cost under the [IBM academic initiative](https://www.ibm.com/academic/home).
-CPLEX is called by R through the dedicated R package Rcplex.
+CPLEX is called by R through the dedicated `R` package `Rcplex`.
 For a smooth installation, we suggest following the following steps:
 1. Register to IBM academic initiative.
 2. Go to the [search page](https://www-03.ibm.com/isc/esd/dswdown/home.wss) and search the following _part number_: CRW5CML 
